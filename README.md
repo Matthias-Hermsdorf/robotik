@@ -13,6 +13,12 @@ Und wie mache ich das der Motor in die andere Richtung dreht?s
 
 Laut Erinnerung fließen die Elektronen von - zu +.  Der Akku hat ein gewisses Potential, das sich über den Motor versucht auszugleichen. Also nehme ich mal an das es -3.3V sind und Ground der Pluspol. Vielleicht irre ich mich auch.
 
+Der Tinkerforge Analog Out Brick hat 4 Pins, 3.3V, 5V, Vout und Gnd. V-Out ist das steuerbare und damit interessante. Aber sind es nun + oder - 5V? Laut Doku sollten es +5V sein. Die LED von der Weihnachtsbaumbeleuchtung hing aber so am Kabel das es eher -5V sein sollten. 
+
+### LEDs
+
+LEDs geben in einem bestimmten Volt-Bereich Licht ab. Darunter haben sie einen hohen Widerstand und lassen kein Strom durch. Über dem Lieblingsbereich sinkt ihr Widerstand, sie werden sehr hell und gehen dann kaputt. In einer einfachen Schaltung werden LEDs mit Widerständen in Reihe geschaltet um die Maximalspanung zu begrenzen. Mit dem Analog Out Bricklet muss ich das nicht. Ich kann sagen wieviel Strom fließen soll. Wenn ich von 0 Anfange und mich langsam nähere, geht nichts kaputt. Schließe ich die LED falschrum an, ist sie nur ein Widerstand und es passiert nichts. Die weiße LED, die ich bei der Lichterkette abgeknipst habe, beginnt bei 2,4 V an zu leuchten und bei 3.2V ist sie sehr hell. Mehr habe ich nicht ausprobiert. Laut Aufdruck auf dem Batterieteil der Lichterkette sollte sie für 3V ausgelegt sein.
+
 ## Was macht der Servobrick?
 
 Es gibt bei Tinkerforge einige Bricks, die für Motorsteuerungen in Frage kommen, aber was ist was?
@@ -40,3 +46,7 @@ Die Tinkerforge Servobrickdoku sagt "Brushless Motoren über externe ESCs ebenfa
 ESC steht für Electronic Speed Control. Bei Amazon gibt es da [4er Packs ESCs](https://www.amazon.de/gp/product/B0197WP7L8/) für Dronen für 20€. Da sind einige Kabel dran. Ich sehe die 3 kleinen Steuerungskabel mit dem Stecker der auf die Servoanschlüsse passen sollten. Rot und Schwarz sind bestimmt die Stromzufuhr. Aber warum gibt es 3 blaue?
 
 Wenn ich den Motor über die ESCs an den Servobrick anschließen kann, nehme ich an das ich bei 30° links schnell vorwärts und bei 30° rechts schnell rückwärts fahren kann. Aber die Motoren haben doch nur 2 Kontakte.
+
+## Alternativer Weg: Fernlenkauto per Software steuern
+
+https://www.amazon.de/Revell-Control-01010-Adventskalender-Truck/dp/B01BPF6MX2
