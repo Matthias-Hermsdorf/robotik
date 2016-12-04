@@ -1,0 +1,23 @@
+{
+  "name": "motor-fe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MH",
+  "license": "ISC",
+  "devDependencies": {
+    "koa": "^1.2.4",
+    "koa-static": "^2.0.0"
+  },
+  "port": "3070",
+  "dependencies": {
+    "koa-compress": "^1.0.9",
+    "koa-static-cache": "^3.1.7",
+    "koa.io": "0.0.3",
+    "socket.io": "^1.7.1",
+    "pigpio": "^0.4.0"
+  }
+}

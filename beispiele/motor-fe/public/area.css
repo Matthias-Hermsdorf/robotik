@@ -1,0 +1,44 @@
+
+body {
+    margin: 0;
+}
+.area-control {
+    background-color: #0d0a55;
+    width: 100vw;
+    height: 100vh;
+    //max-width: 600px;
+    //max-height: 600px;
+    margin: 0;
+    position: relative;
+}
+
+.pointer-indikator {
+    display: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    border-radius: 50%;
+    background: rgba(100,100,255, 0.5);
+}
+
+.area-text {
+    max-width: 1000px;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+    padding: 10px 30px;
+
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
+}
+
+h1 {
+    padding: 0;
+    margin: 0 0 10px;
+}

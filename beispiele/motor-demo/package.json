@@ -1,0 +1,15 @@
+{
+  "name": "motor-demo",
+  "version": "1.0.0",
+  "description": "Fährt Motoren am GPIO des Raspberry Pi im Interval vorwärts und rückwärts",
+  "main": "licht.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matthias Hermsdorf",
+  "license": "MIT",
+  "dependencies": {
+    "pigpio": "^0.4.0",
+    "raspi": "^3.0.4"
+  }
+}
