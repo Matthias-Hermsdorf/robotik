@@ -3,10 +3,7 @@ var koa = require('koa.io');
 var path = require('path');
 var fs = require('fs');
 var app = koa();
-var Motor = require("./motor").Motor;
-
-var motor1 = new Motor({forward: 14, backward: 15 });
-var motor2 = new Motor({forward: 20, backward: 21 });
+var carTrike = require('./car-trike');
 
 app.use(staticCache(path.join(__dirname, 'public')));
 
@@ -29,16 +26,7 @@ app.io.use(function* (next) {
 
 // when the client emits 'typing', we broadcast it to others
 app.io.route('drive', function* () {
-    //var data = JSON.parse(this.data[0]);
-    console.log('is driving', this.data[0].motor1, this.data[0].motor2);
-    if (this.data[0].motor1) {
-        motor2.drive(-this.data[0].motor1);
-    }
-    if (this.data[0].motor2) {
-        motor1.drive(-this.data[0].motor2);
-    }
-
-
+    carTrike.drive(this.data[0])
 });
 
 console.log("listening on :80")

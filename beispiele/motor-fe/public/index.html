@@ -17,16 +17,13 @@
                 y: 0
             };
 
-
             var $indikator = $(".pointer-indikator");
 
             $("[data-control-input]")
                 .on("pointerdown mousedown touchstart", function (e) {
-                 //   console.log("start",e)
                     console.log("start");
                     isDriving = true;
                     $indikator.fadeIn().css({top:e.pageY, left: e.pageX});
-                    //socket.emit("drive", "msg");
                     startPoint.x = e.screenX;
                     startPoint.y = e.screenY;
 
@@ -47,10 +44,8 @@
 
                     if (Math.abs(speedDelta) > 15 || Math.abs(directionDelta) ) {
 
-                        let motorSpeeds = getMotorSpeeds(speed, direction);
-                        console.log("moveSpeeds",motorSpeeds,"direction",direction,"speed",speed);
-
-                        socket.emit("drive", motorSpeeds);
+                        console.log("move direction",direction,"speed",speed);
+                        socket.emit("drive", {direction: direction, speed: speed});
                         lastSpeed = speed;
                         lastDirection = direction;
                     }
@@ -69,47 +64,8 @@
                     lastDirection = 0;
                     lastSpeed = 0;
                     $indikator.fadeOut();
-                    socket.emit("drive", {motor1:0, motor2:0});
+                    socket.emit("drive", {direction: 0, speed: 0});
                 }
-
-                function getMotorSpeeds (speed, direction) {
-                    let motor1 = 0;
-                    let motor2 = 0;
-
-                    // Dämpfung
-                    let directionDaempfung = 20;
-                    if (Math.abs(direction) < directionDaempfung) { direction = 0; }
-                    if (direction > directionDaempfung) { direction = direction - directionDaempfung;}
-                    if (direction < -directionDaempfung) { direction = direction + directionDaempfung;}
-
-
-                    if (direction > 0) {
-                        motor1 = speed;
-                        motor2 = speed - direction;
-                        if (motor1 < -speed) motor1 = -speed;
-                        if (motor1 > speed) motor1 = speed;
-
-                        if (motor2 < -speed) motor2 = -speed;
-                        if (motor2 > speed) motor2 = speed;
-                    }
-                    if (direction < 0) {
-                        motor1 = speed + direction;
-                        motor2 = speed;
-                        if (motor2 < -speed) motor2 = -speed;
-                        if (motor2 > speed) motor2 = speed;
-
-                        if (motor1 < -speed) motor1 = -speed;
-                        if (motor1 > speed) motor1 = speed;
-                    }
-
-                    if (direction == 0) {
-                        motor1 = speed;
-                        motor2 = speed;
-                    }
-
-                    return {motor1: motor1, motor2: motor2}
-                }
-    
         });
     </script>
     <link rel="stylesheet" href="area.css" />
