@@ -2,6 +2,7 @@
 body {
     margin: 0;
     background-color: #0d0a55;
+    transition: ease background-color 300ms;
 }
 .area-control {
     width: 100vw;
@@ -95,4 +96,8 @@ h1 {
 .area-config button:hover,
 .area-config button:focus {
     color: rgba(255,255,255,0.7);
+}
+
+body.dead {
+    background-color: #000;
 }
