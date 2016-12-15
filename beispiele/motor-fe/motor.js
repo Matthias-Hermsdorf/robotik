@@ -11,6 +11,7 @@ class Motor {
     }
 
     drive(speed) {
+        speed = Math.floor(speed*255);
 
         if (speed == 0) {
             this.gpioForward.digitalWrite(false);

@@ -1,13 +1,11 @@
 
 body {
     margin: 0;
+    background-color: #0d0a55;
 }
 .area-control {
-    background-color: #0d0a55;
     width: 100vw;
     height: 100vh;
-    //max-width: 600px;
-    //max-height: 600px;
     margin: 0;
     position: relative;
 }
@@ -41,4 +39,60 @@ body {
 h1 {
     padding: 0;
     margin: 0 0 10px;
+}
+
+.area-config {
+    display: none;
+}
+
+.area-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.area-buttons .icon-arrows {
+    display: none;
+}
+
+.area-buttons button {
+    background: none;
+    border: none;
+    padding: 10px;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+}
+
+.area-buttons button svg {
+    fill: rgba(255,255,255,0.4);
+}
+.area-buttons button:hover svg,
+.area-buttons button:focus svg{
+    fill: rgba(255,255,255,0.7);
+}
+
+.area-config ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border-bottom: solid 1px rgba(255,255,255,0.3);
+}
+
+.area-config li {
+    padding: 0; margin: 0;
+    border-top: solid 1px rgba(255,255,255,0.3);
+}
+
+.area-config button {
+    background: none;
+    border: none;
+    padding: 10px;
+    color: rgba(255,255,255,0.4);
+    width: 100%;
+    cursor: pointer;
+}
+.area-config button:hover,
+.area-config button:focus {
+    color: rgba(255,255,255,0.7);
 }

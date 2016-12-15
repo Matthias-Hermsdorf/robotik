@@ -66,6 +66,7 @@ function setLightLevel(val) {
     }
 
     targetVoltage = (((val / 100) * voltageRange) + minVoltage);
+   // console.log("setVoltage", targetVoltage, "val",val, "")
     ao.setVoltage(targetVoltage);
 }
 
