@@ -21,15 +21,12 @@ $(function () {
 
     $("[data-control-input]")
         .on("pointerdown", function (e) {
-            console.log(e);
             e.preventDefault();
             e = e.originalEvent;
-            console.log("start");
             isDriving = true;
             $indikator.fadeIn().css({top:e.pageY, left: e.pageX});
             startPoint.x = e.screenX;
             startPoint.y = e.screenY;
-
         })
         .on("pointermove", function (e) {
             e.preventDefault();

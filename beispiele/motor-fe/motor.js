@@ -30,4 +30,4 @@ class Motor {
     }
 }
 
-module.exports.Motor = Motor
+module.exports.Motor = Motor;

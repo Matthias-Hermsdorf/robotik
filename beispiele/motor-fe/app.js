@@ -3,7 +3,8 @@ var koa = require('koa.io');
 var path = require('path');
 var fs = require('fs');
 var app = koa();
-var carTrike = require('./car-trike');
+var carTrikeDrive = require('./car-trike-drive');
+var carTrikeLight = require('./car-trike-light');
 var powerOff = require('power-off');
 
 app.use(staticCache(path.join(__dirname, 'public')));
@@ -23,12 +24,24 @@ app.io.use(function* (next) {
     // on connect
     yield* next;
     // on disconnect
+    carTrikeDrive.drive({speed:0, direction: 0});
+    carTrikeLight.lightFront(0)
 });
 
 // when the client emits 'typing', we broadcast it to others
 app.io.route('drive', function* () {
-    carTrike.drive(this.data[0])
+    carTrikeDrive.drive(this.data[0])
 });
+
+app.io.route('light-front', function* () {
+    console.log("light-front:",this.data[0]);
+    carTrikeLight.lightFront(this.data[0])
+});
+
+app.io.route('quit-server', function* () {
+    process.exit()
+});
+
 app.io.route('shutdown', function* () {
     powerOff( function (err, stderr, stdout) {
         if(!err && !stderr) {
@@ -36,13 +49,12 @@ app.io.route('shutdown', function* () {
         }
     });
 });
+
 app.io.route('reboot', function* () {
 
 });
-app.io.route('quit-server', function* () {
-    process.exit()
-});
 
-console.log("listening on :80")
+
+console.log("listening on :80");
 app.listen(80);
 
