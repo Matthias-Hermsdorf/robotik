@@ -2,7 +2,7 @@ var Led = require("./led").Led;
 
 var pins = {
     // Pi 2
-    front: false
+    front: 27
 };
 
 if ((process.argv.indexOf("oldpi") > -1)) {

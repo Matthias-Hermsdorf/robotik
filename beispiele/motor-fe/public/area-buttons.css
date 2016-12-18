@@ -1,0 +1,44 @@
+.area-buttons {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.area-buttons .icon-arrows {
+    display: none;
+}
+
+.area-buttons button {
+    background: none;
+    border: none;
+    padding: 10px;
+    opacity: 0.4;
+    transition: ease opacity 300ms;
+    cursor: pointer;
+}
+
+.area-buttons button:hover,
+.area-buttons button:focus {
+    opacity: 0.7;
+}
+
+.area-buttons .btn-light.on {
+    opacity: 1;
+}
+.area-buttons .btn-light.on:hover {
+    opacity: 0.7;
+}
+
+.area-buttons svg path {
+    fill: #fff;
+}
+
+/* besser wäre ein anderes icon */
+.icon-light-dim path,
+.icon-light-far path {
+    stroke: #fff;
+    stroke-width: 23px;
+}
