@@ -5,7 +5,7 @@ $(function () {
        $(".area-config, .area-control, .area-buttons .icon-arrows, .area-buttons .icon-gear").toggle();
     });
 
-    
+
     var lightsAreOn = false;
 
     $("[data-toggle-light=dim]").on("click", function () {
