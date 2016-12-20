@@ -50,28 +50,32 @@ function getMotorSpeeds (speed, direction) {
     let motorRight = 0;
     let pi = Math.PI;
 
+    // Quadrant1 Rückwärts rechts
     if ((direction >= 0) && (direction <= (pi/2))) {
         console.log("1. Quadrant speed", speed, " direction", direction);
         motorLeft = speed;
-        motorRight = Math.cos(2*(direction+pi))*speed;
+        motorRight = Math.cos(2*direction+pi)*speed;
     }
 
+    // Quadrant2 Vorwärts links
     if (direction > (pi/2) && direction <= pi) {
-        motorLeft = Math.cos(2*(direction+(pi/2)))*speed;
+        motorLeft = Math.cos(2*direction+(pi))*speed;
         motorRight = speed;
         console.log("2. Quadrant speed", speed, " direction", direction);
     }
 
+    // Quadrant3 Rückwärts links
     if (direction > pi && direction <= (pi*3/2)) {
-        motorLeft = -speed;
-        motorRight = Math.cos(2*direction)*speed;
+        motorLeft = Math.cos(2*direction)*speed;
+        motorRight= -speed;
         console.log("3. Quadrant speed", speed, " direction", direction);
     }
 
+    // Quadrant4 Rückwärts rechts
     if (direction > (pi*3/2) && direction <= (2*pi)) {
-        //motorLeft = Math.cos(2*(direction+(pi/2)))*speed;
-        motorLeft = Math.cos(2*(direction-(pi/2)))*speed;
-        motorRight = -speed;
+
+        motorLeft= -speed;
+        motorRight = Math.cos(2*direction)*speed;
         console.log("4. Quadrant speed", speed, " direction", direction);
     }
 
@@ -84,7 +88,7 @@ function voltageFix (val) {
     let ret;
     if (val > 0) {
         ret = (val * 0.6) + 0.4;
-    } else {
+    } else  if ( val< 0){
         ret = (val * 0.6) - 0.4;
     }
 

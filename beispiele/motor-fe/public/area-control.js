@@ -33,24 +33,13 @@ $(function () {
             e=e.originalEvent;
             if (!isDriving) return;
 
-            let distance = startPoint.y - e.screenY;
-            let direction = e.screenX - startPoint.x;
-            if (distance > maxDistance) distance = maxDistance;
-            if (distance <  -maxDistance) distance = -maxDistance;
+            const distanceY = startPoint.y - e.screenY;
+            const distanceX = startPoint.x - e.screenX;
+            const distance = Math.sqrt((distanceX*distanceX)+(distanceY*distanceY));
+            const speed = (Math.min(distance, maxDistance))/ maxDistance;
+            const direction = Math.PI - Math.atan2(distanceY, distanceX);
+            socket.emit("drive", {direction: direction, speed: speed});
 
-            if (direction > maxDistance) direction = maxDistance;
-            if (direction <  -maxDistance) direction = -maxDistance;
-
-            let distanceDelta = (distance - lastDistance);
-            let directionDelta = (direction - lastDirection);
-
-            if (Math.abs(distanceDelta) > 15 || Math.abs(directionDelta) ) {
-
-                console.log("move direction",direction/maxDistance,"speed",distance/maxDistance);
-                socket.emit("drive", {direction: direction/maxDistance, speed: distance/maxDistance});
-                lastDistance = distance;
-                lastDirection = direction;
-            }
         })
         .on("pointerup", function (e) {
             e.preventDefault();
