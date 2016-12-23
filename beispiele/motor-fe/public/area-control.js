@@ -1,6 +1,5 @@
 $(function () {
 
-    let socket = io(location.host);
     socket.emit("drive", "msg");
     let isDriving = false;
     let lastDistance = 0;

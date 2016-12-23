@@ -13,8 +13,5 @@ $(function () {
     });
 
 
-    socket.on('disconnect', function () {
-        $(".area-reload").addClass("visible");
-    });
 
 });

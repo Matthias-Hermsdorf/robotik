@@ -22,7 +22,9 @@ app.use(function*() {
 // middleware for socket.io's connect and disconnect
 app.io.use(function* (next) {
     // on connect
+    console.log("connect socket")
     yield* next;
+    console.log("close socket")
     // on disconnect
     carTrikeDrive.drive({speed:0, direction: 0});
     carTrikeLight.lightFront(0)
