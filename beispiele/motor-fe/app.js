@@ -5,6 +5,7 @@ var fs = require('fs');
 var app = koa();
 var carTrikeDrive = require('./car-trike-drive');
 var carTrikeLight = require('./car-trike-light');
+var turret = require('./turret');
 var powerOff = require('power-off');
 
 app.use(staticCache(path.join(__dirname, 'public')));
@@ -22,9 +23,9 @@ app.use(function*() {
 // middleware for socket.io's connect and disconnect
 app.io.use(function* (next) {
     // on connect
-    console.log("connect socket")
+    console.log("connect socket");
     yield* next;
-    console.log("close socket")
+    console.log("close socket");
     // on disconnect
     carTrikeDrive.drive({speed:0, direction: 0});
     carTrikeLight.lightFront(0)
@@ -33,6 +34,12 @@ app.io.use(function* (next) {
 // when the client emits 'typing', we broadcast it to others
 app.io.route('drive', function* () {
     carTrikeDrive.drive(this.data[0])
+});
+
+// Der Client bewegt die Kamera. Momentan ist sie am Turm fest. Da sie aber auch woanders fest sein kann
+// finde ich die Namensgebung sinnvoll
+app.io.route('camera', function* () {
+    turret.rotate(this.data[0])
 });
 
 app.io.route('light-front', function* () {
