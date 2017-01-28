@@ -56,7 +56,8 @@ $(function () {
 
     function turnFar() {
         lightsAreOn = "far";
-        socket.emit("light-front", 0.8);
+        //socket.emit("light-front", 0.8);
+        socket.emit("light-front", 1);
         $("[data-toggle-light=far]").addClass("on");
         $("[data-toggle-light=dim]").removeClass("on");
     }

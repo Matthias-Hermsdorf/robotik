@@ -33,7 +33,9 @@ $(function () {
             if (!isDriving) return;
 
             const distanceY = startPoint.y - e.screenY;
-            const distanceX = startPoint.x - e.screenX;
+            let distanceX = startPoint.x - e.screenX;
+            const drehungsdaempfung= 0.5;
+            distanceX = distanceX*drehungsdaempfung;
             const distance = Math.sqrt((distanceX*distanceX)+(distanceY*distanceY));
             const speed = (Math.min(distance, maxDistance))/ maxDistance;
             const direction = Math.PI - Math.atan2(distanceY, distanceX);

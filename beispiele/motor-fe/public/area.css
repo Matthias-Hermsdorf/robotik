@@ -2,6 +2,7 @@
 body {
     margin: 0;
     background-color: #0d0a55;
+    color: #fff;
 }
 
 
@@ -22,7 +23,6 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    color: #fff;
     padding: 10px 30px;
 
     -webkit-user-select: none;  /* Chrome all / Safari all */

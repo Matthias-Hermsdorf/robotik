@@ -46,6 +46,12 @@ function drive (conf) {
 }
 
 function getMotorSpeeds (speed, direction) {
+
+    // weil bei unter 40% Spannung die Motoren nicht anlaufen. 20% Korrektur damit
+    // man bei angelaufenen Motoren langsam fahren kann.
+    //if (speed != 0) {
+     //   speed = (speed * 0.8) + 0.2;
+    //}
     let motorLeft = 0;
     let motorRight = 0;
     let pi = Math.PI;
