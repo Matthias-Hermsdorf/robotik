@@ -1,5 +1,7 @@
 $(function () {
 
+    let $infoField = $("[data-info-camera-vertical]");
+
     let keyCodes = {
         down: 40,
         up: 38
@@ -9,7 +11,7 @@ $(function () {
         vertical: 0.5
     };
 
-    let stepWidth = 0.02;
+    let stepWidth = 0.01;
 
     $(document).on("keydown", function (e) {
 
@@ -23,20 +25,19 @@ $(function () {
     });
 
     function moveUp() {
-
         position.vertical = Math.min(position.vertical + stepWidth, 1);
-
-        socket.emit("camera", {vertical: position.vertical});
-        console.log("movingUp",position.vertical);
+        emit();
     }
 
     function moveDown() {
-
         position.vertical = Math.max(position.vertical - stepWidth, 0);
-
-        socket.emit("camera", {vertical: position.vertical});
-        console.log("moveDown vertical", position.vertical);
+        emit();
     }
 
+    function emit() {
+        socket.emit("camera", {vertical: position.vertical});
+        console.log("moving vertical", position.vertical);
+        $infoField.text("y:" + position.vertical);
+    }
 
 });

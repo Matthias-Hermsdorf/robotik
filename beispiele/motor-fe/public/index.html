@@ -3,12 +3,14 @@
 <script src="jquery.min.js"></script>
 <script src="jquery.pep.js"></script>
 <script src="socket.io.js"></script>
+<script src="gyronorm.complete.min.js"></script>
 <script src="socket.js"></script>
 <script src="area-config.js"></script>
 <script src="area-control.js"></script>
 <script src="area-buttons.js"></script>
 <script src="area-reload.js"></script>
-<script src="camera-control.js"></script>
+<script src="camera-key-control.js"></script>
+<script src="camera-gyro-control.js"></script>
 <script>
 
 </script>
@@ -58,6 +60,10 @@
 <div class="area area-control" data-control-input touch-action="none">
     <div class="area-text">
         <h1>Fernbedienung</h1>
+    </div>
+    <div class="info">
+        <div data-info-camera-vertical>data-info-camera-vertical</div>
+        <div id="log" data-info-log>log</div>
     </div>
 </div>
 <div class="area area-config">

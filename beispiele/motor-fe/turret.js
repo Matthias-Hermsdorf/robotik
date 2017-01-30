@@ -3,15 +3,18 @@
 var Servo = require("./servo").Servo;
 
 //Pi 2
-var pin = 14;
+// tdb
+var pin = 4;
 if ((process.argv.indexOf("oldpi") > -1)) {
     //Pi 1B
-    pin = 14;
+    pin = 4;
 }
 
 let verticalServo = new Servo(pin);
 
 function vertical(direction) {
+
+
     verticalServo.set(direction);
 
 }

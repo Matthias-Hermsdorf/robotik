@@ -14,8 +14,11 @@ class Servo {
         direction = Math.max(direction, 0);
         direction = Math.min(direction, 1);
 
+        // Der HiTec HS53geht von 600 bis 2350
+        // Das heißt er fährt über 1700 und schafft dabei 180°
 
-        let pulseWidth = Math.floor(direction*1000 + 1000);
+        let pulseWidth = Math.floor(direction*1700 + 600);
+        //let pulseWidth = Math.floor(direction*1000 + 1000);
         console.log("set servo ",this.pin," to pulseWidth:",pulseWidth );
 
         this.gpioServo.servoWrite(pulseWidth);
