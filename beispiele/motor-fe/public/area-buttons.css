@@ -18,6 +18,7 @@
     opacity: 0.4;
     transition: ease opacity 300ms;
     cursor: pointer;
+    color: #fff;
 }
 
 .area-buttons button:hover,

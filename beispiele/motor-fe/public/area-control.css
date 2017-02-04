@@ -4,3 +4,11 @@
     margin: 0;
     position: relative;
 }
+
+.area-control .info {
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+    overflow-y: auto;
+    padding: 5px 10px;
+}
