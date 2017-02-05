@@ -28,11 +28,14 @@ $(function () {
         vertical = (Math.round(vertical * 100)) / 100;
 
         socket.emit("camera",{vertical:vertical,speed:e.speed});
-        console.log("moving vertical", vertical);
-        $infoField.text("y:" + vertical);
-
-
+        console.log("moving vertical", vertical, "speed:",e.speed);
+        if (e.speed != 0) {
+            $infoField.text("y:" + vertical);
+        } else {
+            $infoField.text("y: stop");
+        }
     });
+
 
     $(window).on("connection-lost", function () {
         console.log("on disconnect");

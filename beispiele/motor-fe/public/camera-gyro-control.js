@@ -10,10 +10,8 @@ $(function () {
                 lastDirection = y;
                 let yNormalized = Math.floor((y + 10) * 5)/100;
 
-                //socket.emit("camera", {vertical: yNormalized});
-                $(window).trigger({type:"camera", vertical: yNormalized, speed: 0.5});
+                $(window).trigger({type:"camera", vertical: yNormalized, speed: 0.01});
             }
-
         });
     }).catch(function (e) {
         log("no gyro");

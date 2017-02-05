@@ -1,22 +1,20 @@
 $(function () {
 
+    let isMoving = false;
 
-    let position = {
-        vertical: 0.3
-    };
-
-    let stepWidth = 0.1;
-
-    $("[data-camera-vertical=up]").on("click", function (e) {
-        $(window).trigger({type:"camera", vertical: (position.vertical+stepWidth), speed: 0.5});
+    $("[data-camera-vertical=up]").on("pointerdown", function (e) {
+        $(window).trigger({type: "camera", vertical: 1, speed: 0.005});
+        isMoving = true;
     });
 
-    $("[data-camera-vertical=down]").on("click", function (e) {
-        $(window).trigger({type:"camera", vertical: (position.vertical-stepWidth), speed: 0.5});
+    $("[data-camera-vertical=down]").on("touchstart pointerdown", function (e) {
+        $(window).trigger({type:"camera", vertical: 0, speed: 0.005});
+        isMoving = true;
     });
 
-    $(window).on("camera", function (e) {
-        position.vertical = e.vertical;
+    $(window).on("touchend pointerup", function (e) {
+        if (isMoving) {
+            $(window).trigger({type: "camera", vertical: 0.5, speed: 0});
+        }
     });
-
 });
