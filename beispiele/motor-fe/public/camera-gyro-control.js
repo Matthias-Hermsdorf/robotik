@@ -8,7 +8,7 @@ $(function () {
             y = (Math.floor(data.dm.gy * 10))/10;
             if (y != lastDirection) {
                 lastDirection = y;
-                let yNormalized = Math.floor((y + 10) * 5)/100;
+                let yNormalized = 1- Math.floor((y + 10) * 5)/100;
 
                 $(window).trigger({type:"camera", vertical: yNormalized, speed: 0.01});
             }
