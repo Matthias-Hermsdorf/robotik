@@ -56,34 +56,48 @@ function getMotorSpeeds (speed, direction) {
     let motorRight = 0;
     let pi = Math.PI;
 
-    // Quadrant1 Rückwärts rechts
+    // N bis O Vorwärts rechts
     if ((direction >= 0) && (direction <= (pi/2))) {
-        console.log("1. Quadrant speed", speed, " direction", direction);
+        console.log("N bis O speed", speed, " direction", direction);
         motorLeft = speed;
-        motorRight = Math.cos(2*direction+pi)*speed;
+        motorRight = Math.sin(direction)*speed;
     }
 
-    // Quadrant2 Vorwärts links
-    if (direction > (pi/2) && direction <= pi) {
-        motorLeft = Math.cos(2*direction+(pi))*speed;
+    // N bis W Vorwärts links - jetzt neu, wechsel erst hinten links
+    if (direction > (pi/2) && direction <= (pi)) {
+        motorLeft = Math.sin(direction)*speed;
         motorRight = speed;
-        console.log("2. Quadrant speed", speed, " direction", direction);
+        console.log("N bis SSW speed", speed, " direction", direction);
+    }
+    // W bis SSW starke Drehung links
+    if (direction > (pi) && direction <= (pi*5/4)) {
+        motorLeft = Math.sin(direction)*speed;
+        motorRight = speed;
+        console.log("N bis SSW speed", speed, " direction", direction);
     }
 
-    // Quadrant3 Rückwärts links
-    if (direction > pi && direction <= (pi*3/2)) {
-        motorLeft = Math.cos(2*direction)*speed;
+    // Richtung S bis SSW Rückwärts links
+    if (direction > (pi*5/4) && direction <= (pi*3/2)) {
+        motorLeft = Math.sin(2*direction-pi*3/2)*speed
         motorRight= -speed;
-        console.log("3. Quadrant speed", speed, " direction", direction);
+        console.log("S bis SSW speed", speed, " direction", direction);
     }
 
-    // Quadrant4 Rückwärts rechts
-    if (direction > (pi*3/2) && direction <= (2*pi)) {
+    // Richtung S bis SSO Rückwärts rechts
+    if (direction > (pi*3/2) && direction <= (7/4*pi)) {
 
         motorLeft= -speed;
-        motorRight = Math.cos(2*direction)*speed;
-        console.log("4. Quadrant speed", speed, " direction", direction);
+        motorLeft = Math.sin(2*direction-pi*3/2)*speed
+        console.log("S bis SSO speed", speed, " direction", direction);
     }
+    
+    // SSO bis O Rechts 
+    if (direction > (7/4*pi) && (direction <= (2*pi))) {
+        console.log("SSO bis O speed", speed, " direction", direction);
+        motorLeft = speed;
+        motorRight = Math.sin(direction)*speed;
+    }
+
 
     //return {motorLeft: voltageFix(motorLeft), motorRight: voltageFix(motorRight)}
     return {motorLeft: motorLeft, motorRight: motorRight};
