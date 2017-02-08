@@ -49,4 +49,38 @@ Wenn ich den Motor über die ESCs an den Servobrick anschließen kann, nehme ich
 
 ## Alternativer Weg: Fernlenkauto per Software steuern
 
-https://www.amazon.de/Revell-Control-01010-Adventskalender-Truck/dp/B01BPF6MX2
+https://www.amazon.de/dp/B01BPF6MX2 Revell Truck als Adventskalender
+
+
+
+# Motoren
+
+Es gibt einfache Motoren, Servos, 360° Servos und Schrittmotoren.
+
+## normale Motoren
+
+https://www.amazon.de/dp/B01EIYJARW 2-Rad Roboterplattform
+
+In den Robotik Sets bei Amazon gibt es immer diese Motoren mit gelber Hülle und 2 Kontakten. Ein Kontakt ist Strom (+), einer ist Masse (-). Je nachdem wie ich die Kabel anlege, fährt er in die eine oder andere Richtung.
+
+Am Raspberry Pi habe ich aber nur Strom, 3,3V und 5V und Masse. Ohne weiteres kann ich den Strom nicht umpolen. Des weiteren liefern die Pins nur sogenannte Steuerströme, beim Pi sind das wenige mA. Eine Status-LED kann man damit leuchten lassen, einen Motor sollte man nicht direkt da dran hängen.
+
+Wir brauchen ein weiteres Bauteil was über ein Signal den Stromfluss steuert und das eine externe Stromquelle verwenden kann. Und wir haben Glück weil wir mit dem Problem nicht alleine sind.
+
+https://www.amazon.de/dp/B015SQ57VC L298N H Brücke
+
+Diese Platine gibt es von verschiedenen Herstellern, aber der Grundaufbau ist gleich. Sie macht genau was sie soll und ermöglicht die Steuerung von 2 Motoren. Der Aufbau ist fast symetrisch. Es gibt (bei der blauen 3er Dose) einen Eingang für die externe Stromquelle. Daneben ist eine Pinleiste für die Steuersachen. Die blauen 2er Dosen werden mit den Motoren verbunden. 
+Immer wenn man auf einem der Steuerpins Strom anbietet fährt ein Motor in eine Richtung. Pro Motor benötigt man 2 Kabel von den GPIO Pins des Pi zur H-Brücke. Zusätzlich muss ein GND (oder Masse oder -) Pin vom Pi mit dem GND der H-Brücke (blaue 3er Gruppe, mittleres Loch) verbunden werden.
+
+https://www.amazon.de/dp/B01EV70C78/ ein Jumperkabelset - Es ist immer gut alle 3 Varianten da zu haben
+
+Die Geschwindigkeit wird durch PWM gesteuert. Pulsweitenmodulation heißt das in hoher Frequenz der Strom an und ausgeschaltet wird. Wenn der Strom nur in 1/3 der Zeit angeschaltet ist, wirkt er wie ein 1/3 so hoher Stromfluss. Das kann bei nodejs auf dem Raspberry Pi jeder GPIO Pin. Ich verwende hierfür pigpio
+
+https://www.npmjs.com/package/pigpio pigpio
+
+Damit lassen sich beliebig große Motoren recht einfach steuern. Je nach Motorgröße gibt es unterschiedliche H-Brücken. Lästigerweise hat eine H-Brücke einen Wirkungsgrad != 100%. Von dem Strom den ich anlege gehen 1-2 V in der L298N verloren.  
+
+Bei dem oben genannten 2-Rad Bauset ist eine Halterung für 4 AA Batterien enthalten. Unter Last ist das zu wenig.  6 Batterien sind besser.
+
+https://www.amazon.de/sourcingmap®-Schichten-AA-Batterien-Halterung-Drahtleitungen/dp/B00QBZ7EF2
+
