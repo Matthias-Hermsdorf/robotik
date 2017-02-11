@@ -1,5 +1,5 @@
 'use strict';
-var Motor = require("./motor").Motor;
+let Servo = require("./servo").Servo;
 
 // Pins siehe http://www.raspberrypi-spy.co.uk/2012/06/simple-guide-to-the-rpi-gpio-header-and-pins/
 
@@ -8,39 +8,38 @@ var Motor = require("./motor").Motor;
 // Es funktionieren auch die mit UART gekennzeichneten Pins. Aber beim Ausschalten fließt auf RTX Strom und das Auto
 var pins = {
     // Pi 2
-    motorLeft: {forward: 23, backward: 24 },
-    motorRight: {forward: 20, backward: 21 }
+    motorLeft: 4,
+    motorRight: 3
 };
 
 if ((process.argv.indexOf("oldpi") > -1)) {
     // http://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/09/Raspberry-Pi-GPIO-Layout-Revision-1.png
     pins = {
         //Pi 1B
-        motorLeft: {forward: 23, backward: 24 },
-        motorRight: {forward: 25, backward: 11 }
+    //    motorLeft: {forward: 23, backward: 24 },
+    //    motorRight: {forward: 25, backward: 11 }
         // GPIO8 wäre von der Position her besser. Aber nach dem Ausschalten fließt dort Strom  und das Auto fährt.
 
     }
 }
 
-var motorLeft = new Motor(pins.motorLeft);
-var motorRight = new Motor(pins.motorRight);
+var servoLeft = new Servo({pin:pins.motorLeft,minPulse:1000,maxPulse:2000});
+var servoRight = new Servo({pin:pins.motorRight,minPulse:1000,maxPulse:2000});
+
 
 function drive (conf) {
-    //conf.direction;
-    //conf.speed;
 
     if (conf.speed != 0) {
         let speeds = getMotorSpeeds(conf.speed, conf.direction);
 
         console.log('is driving', speeds.motorLeft, speeds.motorRight);
-        motorLeft.drive(speeds.motorLeft);
-        motorRight.drive(speeds.motorRight);
+        servoLeft.set(speeds.motorLeft);
+        servoRight.set(speeds.motorRight);
     
     } else {
         console.log('break');
-        motorLeft.drive(0);
-        motorRight.drive(0);
+        servoLeft.set(0.5);
+        servoRight.set(0.5);
     }
 
 }
@@ -58,7 +57,7 @@ function getMotorSpeeds (speed, direction) {
 
     // N bis O Vorwärts rechts
     if ((direction >= 0) && (direction <= (pi/2))) {
-        console.log("N bis O speed", speed, " direction", direction);
+        //console.log("N bis O speed", speed, " direction", direction);
         motorLeft = speed;
         motorRight = Math.sin(direction)*speed;
     }
@@ -67,20 +66,20 @@ function getMotorSpeeds (speed, direction) {
     if (direction > (pi/2) && direction <= (pi)) {
         motorLeft = Math.sin(direction)*speed;
         motorRight = speed;
-        console.log("N bis SSW speed", speed, " direction", direction);
+        //console.log("N bis SSW speed", speed, " direction", direction);
     }
     // W bis SSW starke Drehung links
     if (direction > (pi) && direction <= (pi*5/4)) {
         motorLeft = Math.sin(direction)*speed;
         motorRight = speed;
-        console.log("N bis SSW speed", speed, " direction", direction);
+        //console.log("N bis SSW speed", speed, " direction", direction);
     }
 
     // Richtung S bis SSW Rückwärts links
     if (direction > (pi*5/4) && direction <= (pi*3/2)) {
         motorLeft = Math.sin(2*direction-pi*3/2)*speed
         motorRight= -speed;
-        console.log("S bis SSW speed", speed, " direction", direction);
+        //console.log("S bis SSW speed", speed, " direction", direction);
     }
 
     // Richtung S bis SSO Rückwärts rechts
@@ -88,19 +87,21 @@ function getMotorSpeeds (speed, direction) {
 
         motorLeft= -speed;
         motorRight = Math.sin(2*direction-pi*3/2)*speed
-        console.log("S bis SSO speed", speed, " direction", direction);
+        //console.log("S bis SSO speed", speed, " direction", direction);
     }
     
     // SSO bis O Rechts 
     if (direction > (7/4*pi) && (direction <= (2*pi))) {
-        console.log("SSO bis O speed", speed, " direction", direction);
+        //console.log("SSO bis O speed", speed, " direction", direction);
         motorLeft = speed;
         motorRight = Math.sin(direction)*speed;
     }
 
+//    console.log("speed:",speed,"direction:",direction,"motorLeft:",motorLeft,"motorRight",motorRight)
 
-    //return {motorLeft: voltageFix(motorLeft), motorRight: voltageFix(motorRight)}
-    return {motorLeft: motorLeft, motorRight: motorRight};
+
+
+    return {motorLeft: (motorLeft+1)/2, motorRight: (motorRight+1)/2};
 }
 
 

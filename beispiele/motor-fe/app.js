@@ -3,7 +3,13 @@ var koa = require('koa.io');
 var path = require('path');
 var fs = require('fs');
 var app = koa();
-var carTrikeDrive = require('./car-trike-drive');
+var car = require('./car-trike-drive');
+if ((process.argv.indexOf("servo") > -1)) {
+    car = require('./car-servo-drive');
+} else {
+    car = require('./car-trike-drive');
+}
+
 var carTrikeLight = require('./car-trike-light');
 var turret = require('./turret');
 var powerOff = require('power-off');
@@ -27,13 +33,13 @@ app.io.use(function* (next) {
     yield* next;
     console.log("close socket");
     // on disconnect
-    carTrikeDrive.drive({speed:0, direction: 0});
+    car.drive({speed:0, direction: 0});
     carTrikeLight.lightFront(0)
 });
 
 // when the client emits 'typing', we broadcast it to others
 app.io.route('drive', function* () {
-    carTrikeDrive.drive(this.data[0])
+    car.drive(this.data[0])
 });
 
 // Der Client bewegt die Kamera. Momentan ist sie am Turm fest. Da sie aber auch woanders fest sein kann
