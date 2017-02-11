@@ -61,7 +61,11 @@ Es gibt einfache Motoren, Servos, 360° Servos und Schrittmotoren.
 
 https://www.amazon.de/dp/B01EIYJARW 2-Rad Roboterplattform
 
-In den Robotik Sets bei Amazon gibt es immer diese Motoren mit gelber Hülle und 2 Kontakten. Ein Kontakt ist Strom (+), einer ist Masse (-). Je nachdem wie ich die Kabel anlege, fährt er in die eine oder andere Richtung.
+In den Robotik Sets bei Amazon gibt es immer diese Motoren mit gelber Hülle und 2 Kontakten. Ein Kontakt ist Strom (+), einer ist Masse (-). Je nachdem wie ich die Kabel anlege, fährt er in die eine oder andere Richtung. 
+
+Um den Motor anzusteuern nutze ich ein Raspberry Pi. Ich habe einen Raspberry Pi 2, würde mir heute aber einen 3er kaufen.
+
+https://www.amazon.de/dp/B01CD5VC92
 
 Am Raspberry Pi habe ich aber nur Strom, 3,3V und 5V und Masse. Ohne weiteres kann ich den Strom nicht umpolen. Des weiteren liefern die Pins nur sogenannte Steuerströme, beim Pi sind das wenige mA. Eine Status-LED kann man damit leuchten lassen, einen Motor sollte man nicht direkt da dran hängen.
 
@@ -82,5 +86,51 @@ Damit lassen sich beliebig große Motoren recht einfach steuern. Je nach Motorgr
 
 Bei dem oben genannten 2-Rad Bauset ist eine Halterung für 4 AA Batterien enthalten. Unter Last ist das zu wenig.  6 Batterien sind besser.
 
-https://www.amazon.de/sourcingmap®-Schichten-AA-Batterien-Halterung-Drahtleitungen/dp/B00QBZ7EF2
+https://www.amazon.de/dp/B00QBZ7EF2 6 AA Halterung (man sollte mehrere kaufen. Der Preis ist bei 3 Stück fast gleich.)
+
+Statt den Pi als Basis kann man auch einen Blick zu Tinkerforge werfen. Hier gibt es den DC Brick. Es ist eine H-Brücke mit Steuerlogik, USB-Anschluss und einer API in vielen Programmiersprachen. Dafür ist er etwas teurer.
+
+https://www.tinkerforge.com/de/shop/bricks/dc-brick.html
+
+Die Motoren sind billig, sind für jede Größenordnung zu bekommen. Aber ich kann den Motor nicht definiert eine halbe Raddrehung nach vorn fahren. Möchte man den Motor definiert kleine Winkel bewegen, kann man Servomotoren nutzen. Benötigt man einen großen Motor mit definiertem Verhalten, sollte ma sich Schrittmotoren ansehen.
+
+## Servomotoren
+
+Servomotoren eignen sich für Arme und Beine von Robotern. Ich habe ein Fahrzeug mit einer vertikal verstellbaren Kamerahalterung. Mit einem Servomotor stelle ich die Position ein. Mit ihnen kann man einen Winkel von 180° in sehr kleinen Schritten vor und zurück fahren. Es sind keine ganzen Drehungen möglich.
+
+Sie haben einen standartisierten 3-Pin Anschluss, der ein schwarzes Kabel für die Masse (-), ein rotes Kabel in der Mitte für den Strom (+), und ein gelbes für die Signale. Dazu gleich mehr. Je nach Hersteller kann die Farbgebung auch etwas variieren. Von Olimex habe ich 360° Servos mit braun/rot/orangen Kabeln. Dann ist braun=schwarz und orange=gelb.
+
+Zur Steuerung der Position wird die Pulsweite genutzt. Ich habe HiTech-53 Microservos hier.  Bei einer Pulsweite von 600ms fahren sie an die Startposition. Bei 2350ms fährt er zum anderen Ende. Gibt man Werte außerhalb des Bereichs an, stottert der Motor oder macht nichts. Es kann dabei nichts kaputt gehen.
+
+https://www.tinkerforge.com/de/shop/accessories/motors/servo-hitec-hs-53.html
+
+Ich hatte sie in Verbindung mit einem Servobrick von Tinkerforge gekauft. An dem kann ich 7 Servos anschließen. Das gelbe Kabel muss nach oben. 
+
+https://www.tinkerforge.com/de/shop/bricks/servo-brick.html
+
+Die API ist einfach und für viele Sprachen erhältlich. Zum Testen gibt es eine grafische Oberfläche.  Ich fand das wirklich einfach. Aber für ein Fahrzeug würde ich noch einen WIFI Brick oder den Red Brick benötigt. Und das wären dann 80-100€ für die Servoansteuerung gewesen. Der Raspberry Pi kann das aber auch. Und den habe ich hier schon herumliegen.
+
+https://www.amazon.de/dp/B01CD5VC92
+
+Den Servoconnector kann man auseinander nehmen. Ma kann die Kabel von dem Gehäuse nehmen und in einfache Hüllen von herumliegenden Jumperkabeln stecken.
+
+https://www.amazon.de/dp/B013B0CF30
+
+Man braucht dann nur 3 Pins. Die Pinbelegung gibt es bei google
+
+http://raspi.tv/wp-content/uploads/2014/07/Raspberry-Pi-GPIO-pinouts.png
+
+Das rote Kabel kommt auf ein 5V Pin oben links. Das schwarze Kabel kommt auf ein schwarzes Ground-Pin (oben, drittes von links). Es wäre jetzt zu leicht das Signal von Pin 14 direkt daneben zu beziehen. Aber der GPIO Pin hat mit UART noch eine Funktion und der Motor würde beim starten des Pis sofort Strom bekommen noch bevor das Programm läuft. Das Pin4 gegenüber funktioniert besser.
+
+Ich programmiere es mit nodeJS und nutze pigpio.
+
+https://www.npmjs.com/package/pigpio 
+
+Pigpio hat eine Servo Klasse der ich die Pulsweite und ein Pin angeben kann. Wo die Grenzwerte des Servos liegen muss man wohl ausprobieren wenn es keine Dokumentation gibt. 
+
+Stellt sich die Frage warum an einen Tinkerforge Brick 7 Servos aber nur 1 normalen Motor anschließen kann, und beim Raspberry der Servo gleich dran geht und ein Motor eine H-Brücke mit externem Strom benötigt. Die Antwort ist einfach. In der Elektrotechnik scheint meist die Abwärme der begrenzende Faktor zu sein. Die 7 Servomotoren werden nicht gleichzeitig große Lasten bewegen. wie der eine normale. Genau so wie eine LED mit 50% gepulsten 5V funktioniert ähnlich viel Wärme wie eine mit 2,5V betriebene LED.
+
+
+
+
 
