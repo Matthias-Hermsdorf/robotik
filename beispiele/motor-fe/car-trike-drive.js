@@ -8,8 +8,8 @@ var Motor = require("./motor").Motor;
 // Es funktionieren auch die mit UART gekennzeichneten Pins. Aber beim Ausschalten fließt auf RTX Strom und das Auto
 var pins = {
     // Pi 2
-    motorLeft: {forward: 23, backward: 24 },
-    motorRight: {forward: 20, backward: 21 }
+    motorRight: {forward: 23, backward: 24 },
+    motorLeft: {forward: 20, backward: 21 }
 };
 
 if ((process.argv.indexOf("oldpi") > -1)) {
