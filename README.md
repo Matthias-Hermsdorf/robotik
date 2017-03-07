@@ -130,7 +130,14 @@ Pigpio hat eine Servo Klasse der ich die Pulsweite und ein Pin angeben kann. Wo 
 
 Stellt sich die Frage warum an einen Tinkerforge Brick 7 Servos aber nur 1 normalen Motor anschließen kann, und beim Raspberry der Servo gleich dran geht und ein Motor eine H-Brücke mit externem Strom benötigt. Die Antwort ist einfach. In der Elektrotechnik scheint meist die Abwärme der begrenzende Faktor zu sein. Die 7 Servomotoren werden nicht gleichzeitig große Lasten bewegen. wie der eine normale. Genau so wie eine LED mit 50% gepulsten 5V funktioniert ähnlich viel Wärme wie eine mit 2,5V betriebene LED.
 
+## 360° Servos
 
+Sie sehen aus wie normale Servos. Es sind kleine Getriebemotoren mit 3 Pins zur Ansteuerung. Pulsweitenmoduliert wird die Geschwindigkeit vorgegeben. 
 
+**Link zu Amazon zu dem ServoSet**
 
+Strom (+,V, rot), Masse (-, GND, schwarz, braun) und ein Signalkabel (gelb oder orange). Strom mt beim Pi an einen 5V Port, Schwarz kommt an einen  GND Pin und das gelbe kommt an einen GPIO Pin. 
 
+Zur Ansteuerung verwende ich pigpio. Bei dem verlinkten Motor fährt bei 1000 Millisekunden voll Rückwärts, bei 1500 steht er still, bei 2000 geht er voll vorwärts.
+
+In der Theorie klingt das ganz blendend. Bei dem typischen Fahrtzeugaufbau mit 2 angetriebenen Rädern muss ich aber beide Motoren synchronisieren. Hierfür gibt es im Motor eine kleine Schraube an einem Potentiometer. Bisher habe ich es nicht geschafft das 2 Motoren im selben Augenblick anlaufen. Ein Aufbau mit Antrieb und Lenkung wäre wohl die bessere Lösung um gerade aus zu fahren.
