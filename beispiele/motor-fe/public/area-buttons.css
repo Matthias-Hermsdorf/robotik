@@ -19,6 +19,7 @@
     transition: ease opacity 300ms;
     cursor: pointer;
     color: #fff;
+    user-select: none;
 }
 
 .area-buttons button:hover,

@@ -1,4 +1,10 @@
-let Gpio = require('pigpio').Gpio;
+let Gpio;
+
+if ((process.argv.indexOf("stub") > -1)) {
+    Gpio = require('./pigpio-stub').Gpio;
+} else {
+    Gpio = require('pigpio').Gpio;
+}
 
 class Servo {
     constructor(conf) {
